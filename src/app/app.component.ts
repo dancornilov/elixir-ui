@@ -17,6 +17,14 @@ export class AppComponent {
   }
 
   public fetchData(): void {
-    this.httpClient.get('http://127.0.0.1:8000').subscribe(response => console.log(response));
+    setInterval(() => {
+      this.httpClient.get('http://127.0.0.1:8000').subscribe((response: any) => {
+        this.msgs.push({
+          severity: 'info',
+          summary: response.forecast,
+          detail: response.date
+        });
+      });
+    }, 5000);
   }
 }
